@@ -14,7 +14,9 @@
 
 <html>
 <head>
-<title>회원정보수정</title>
+
+<title>구매정보수정</title>
+
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 

@@ -78,6 +78,87 @@ public class PurchaseController {
 	return "forward:/purchase/addPurchase.jsp";
 }
 	
+	@RequestMapping("/getPurchase.do")
+	public String addPurchase(	 @RequestParam("prodNo") String prodNo,
+															@RequestParam("tranNo") int tranNo,
+															Model model ) throws Exception {
+		
+		model.addAttribute("vo", productService.findProduct(prodNo));
+		model.addAttribute("pvo", purchaseService.getPurchase(tranNo));
+		
+	return "forward:/purchase/getPurchaseView.jsp";
+	
+	}
+	
+	@RequestMapping("/listPurchase.do")
+	public String listProduct( @ModelAttribute("search") Search search,
+													HttpSession session,
+													HttpServletRequest request,
+													Model model)  throws Exception {
+	
+	session = request.getSession();
+	User user = (User)session.getAttribute("user");
+	
+	if(search.getCurrentPage() ==0 ){
+		search.setCurrentPage(1);
+	}
+	search.setPageSize(pageSize);
+
+	// Business logic ผ๖วเ
+	Map<String , Object> map=purchaseService.getPurchaseList(search, user.getUserId());
+	Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+	System.out.println(resultPage);
+	
+	model.addAttribute("list", map.get("list"));
+	model.addAttribute("resultPage", resultPage);
+	model.addAttribute("search", search);
+	
+	return "forward:/purchase/listPurchase.jsp";
+}
+	
+	@RequestMapping("/updatePurchase.do")
+	public String updatePurchase(	@ModelAttribute("vo") Purchase vo,
+															@RequestParam("tranNo") int tranNo,
+															Model model ) throws Exception {
+		
+		vo = purchaseService.getPurchase(tranNo);
+		model.addAttribute("vo", vo);
+		
+	return "forward:/purchase/updatePurchaseView.jsp";
+	
+	}
+	
+	@RequestMapping("/updatePurchaseView.do")
+	public String updatePurchaseView(	@ModelAttribute("vo") Purchase vo,
+																		Model model ) throws Exception {
+		
+		purchaseService.updatePurchase(vo);
+		vo = purchaseService.getPurchase(vo.getTranNo());
+		model.addAttribute("vo", vo);
+		
+	return "forward:/purchase/updatePurchase.jsp";
+	
+	}
+	
+	@RequestMapping("/updateTranCode.do")
+	public String updateTranCode(	@ModelAttribute("vo") Purchase vo,
+																@RequestParam("prodNo") int prodNo,
+																@RequestParam("tranCode") String tranCode,
+																		Model model ) throws Exception {
+			
+		vo = purchaseService.findTranInfo(prodNo);
+		if ( vo.getTranCode().equals("002")) {
+		vo.setTranCode("003");
+		}else if( vo.getTranCode().equals("003")) {
+			vo.setTranCode("004");
+		}
+		purchaseService.updateTranCode(vo);
+		
+	return "redirect:/index.jsp";
+	
+	}
+	
+	
 }
 
 

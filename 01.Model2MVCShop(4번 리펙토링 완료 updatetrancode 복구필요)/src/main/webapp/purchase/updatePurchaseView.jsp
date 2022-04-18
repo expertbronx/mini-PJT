@@ -15,12 +15,6 @@
 <script type="text/javascript">
 
 function fncUpdatePurchase(){
-	//Form 유효성 검증
- 	var userName = document.detailForm.userName.value;
-	var addr = document.detailForm.addr.value;
-	var phone = document.detailForm.phone.value;
-	var tranNo = document.detailForm.tranNo.value;
-
 	document.detailForm.action='/updatePurchaseView.do';
 	document.detailForm.submit();
 }
@@ -30,7 +24,7 @@ function fncUpdatePurchase(){
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form action="updatePurchaseView.do" id="detailForm" >
+<form name="detailForm" method="post" >
 <input type="hidden" name="tranNo" value="${vo.tranNo}"/>
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -92,7 +86,7 @@ function fncUpdatePurchase(){
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input type="text" name="userName" value="${vo.receiverName}" class="ct_input_g" 
+			<input type="text" name="receiverName" value="${vo.receiverName}" class="ct_input_g" 
 						style="width:100px; height:19px"  maxLength="50" >
 		</td>
 	</tr>
@@ -104,7 +98,7 @@ function fncUpdatePurchase(){
 		<td width="104" class="ct_write">주소</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input 	type="text" name="addr" value="${vo.divyAddr}" class="ct_input_g" 
+			<input 	type="text" name="divyAddr" value="${vo.divyAddr}" class="ct_input_g" 
 							style="width:370px; height:19px"  maxLength="100">
 		</td>
 	</tr>
@@ -116,7 +110,7 @@ function fncUpdatePurchase(){
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 
-			<input type="text" name="phone" value="${vo.receiverPhone }" style="width:370px; height:19px"  maxLength="100">												 
+			<input type="text" name="receiverPhone" value="${vo.receiverPhone }" style="width:370px; height:19px"  maxLength="100">												 
 		</td>
 	</tr>
 
@@ -142,7 +136,7 @@ function fncUpdatePurchase(){
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="#" onclick="document.getElementById('detailForm').submit();">수정</a>
+						<a href="javascript:fncUpdatePurchase();">수정</a>
 					</td>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
