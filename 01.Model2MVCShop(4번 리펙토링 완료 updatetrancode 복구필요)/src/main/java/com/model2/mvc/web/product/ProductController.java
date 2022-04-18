@@ -89,6 +89,7 @@ public class ProductController {
 														HttpServletRequest request,
 														Model model)  throws Exception {
 		
+		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
@@ -103,7 +104,7 @@ public class ProductController {
 		model.addAttribute("searchVO", search);
 		model.addAttribute("menu", menu);
 		model.addAttribute("resultPage", resultPage);
-		
+		System.out.println("테스트 메뉴"+menu);
 		return "forward:/product/listProduct.jsp";
 	}
 	

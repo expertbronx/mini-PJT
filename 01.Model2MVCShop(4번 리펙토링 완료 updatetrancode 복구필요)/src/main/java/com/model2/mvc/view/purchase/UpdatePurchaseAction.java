@@ -13,9 +13,9 @@ public class UpdatePurchaseAction extends Action {
 	@Override
 	public String execute(	HttpServletRequest request,
 												HttpServletResponse response) throws Exception {
-		int tranNum = Integer.parseInt(request.getParameter("tranNo"));
+		int tranNo = Integer.parseInt(request.getParameter("tranNo"));
 		PurchaseService service = new PurchaseServiceImpl();
-		Purchase vo = service.getPurchase(tranNum);
+		Purchase vo = service.getPurchase(tranNo);
 		request.setAttribute("vo", vo);
 		request.setAttribute("prodNo", request.getParameter("prodNo"));
 		return "forward:/purchase/updatePurchaseView.jsp";
